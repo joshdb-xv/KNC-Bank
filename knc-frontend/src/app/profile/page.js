@@ -45,7 +45,7 @@ export default function Profile() {
       try {
         const storedUsername = localStorage.getItem("username");
         if (!storedUsername) {
-          router.push("/auth/login");
+          router.push("/auth");
           return;
         }
 

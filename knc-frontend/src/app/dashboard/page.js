@@ -20,7 +20,7 @@ export default function Dashboard() {
     useEffect(() => {
         const storedUsername = localStorage.getItem('username');
         if (!storedUsername) {
-            router.push('/auth/login');
+            router.push('/auth');
         } else {
             setUsername(storedUsername);
             fetchDashboardData(storedUsername);
@@ -149,7 +149,7 @@ export default function Dashboard() {
                         {/* RIGHT BENTO - TRANSACTION HISTORY */}
                         <div className='flex flex-col w-4/7 h-auto bg-white shadow-[0px_2px_16px_0px_rgba(0,0,0,0.15)] rounded-2xl p-8'>
                             <p className='text-gray-mid text-2xl font-medium tracking-wide'>HISTORY</p>
-                            <div className="flex flex-col items-center justify-center py-4 gap-6">
+                            <div className="flex flex-col items-center justify-center py-2 gap-4">
                                 {transactions.length > 0 ? (
                                     transactions.map((transaction, index) => (
                                         <div 

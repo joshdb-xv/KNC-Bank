@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Toast from "@/components/Toast";
+import LoadingScreen from "@/components/LoadingScreen";
 
 export default function Login() {
     const [formData, setFormData] = useState({
@@ -30,7 +31,6 @@ export default function Login() {
             }
             setIsChecking(false);
         };
-
         checkAuth();
     }, [router]);
 
@@ -39,7 +39,6 @@ export default function Login() {
         const handleMouseMove = (e) => {
             setMousePosition({ x: e.clientX, y: e.clientY });
         };
-
         window.addEventListener("mousemove", handleMouseMove);
         return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
@@ -79,7 +78,7 @@ export default function Login() {
             return;
         }
 
-        setLoading(true);
+        setLoading(true); // show loader
 
         try {
             const response = await fetch("http://localhost:8000/auth/login", {
@@ -100,14 +99,14 @@ export default function Login() {
                 showToast("Login successful! Redirecting...", "success");
                 setTimeout(() => {
                     router.replace("/dashboard");
-                }, 1000);
+                }, 1200); // sync with loader animation
             } else {
                 showToast(data.detail || "Something went wrong", "error");
+                setLoading(false); // stop loader if failed
             }
         } catch (error) {
             console.error("Login error:", error);
             showToast("Failed to connect to server. Please try again.", "error");
-        } finally {
             setLoading(false);
         }
     };
@@ -199,7 +198,7 @@ export default function Login() {
                                 disabled={loading}
                                 className="w-full py-3 px-6 bg-primary hover:bg-primary-light text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 tracking-wide disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                             >
-                                {loading ? "SIGNING IN..." : "SIGN IN"}
+                                SIGN IN
                             </button>
                         </div>
 
@@ -228,6 +227,9 @@ export default function Login() {
                     setToast((prev) => ({ ...prev, isVisible: false }))
                 }
             />
+
+            {/* Loader Overlay */}
+            <LoadingScreen isVisible={loading} />
         </div>
     );
 }

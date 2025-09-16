@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Toast from "@/components/Toast";
+import LoadingScreen from "@/components/LoadingScreen"; // 👈 use the same loader
 
 export default function SignUp() {
     const [formData, setFormData] = useState({
@@ -123,9 +124,10 @@ export default function SignUp() {
                 );
                 setTimeout(() => {
                     router.push("/auth/login");
-                }, 1200);
+                }, 1200); // sync with loader animation
             } else {
                 showToast(data.detail || "Something went wrong", "error");
+                setLoading(false); // stop loader if failed
             }
         } catch (error) {
             console.error("Signup error:", error);
@@ -133,7 +135,6 @@ export default function SignUp() {
                 "Failed to connect to server. Please try again.",
                 "error"
             );
-        } finally {
             setLoading(false);
         }
     };
@@ -296,7 +297,7 @@ export default function SignUp() {
                                 disabled={loading}
                                 className="w-full py-3 px-6 bg-primary hover:bg-primary-light text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 tracking-wide mt-6 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                             >
-                                {loading ? "CREATING ACCOUNT..." : "CREATE ACCOUNT"}
+                                CREATE ACCOUNT
                             </button>
                         </div>
 
@@ -325,6 +326,9 @@ export default function SignUp() {
                     setToast((prev) => ({ ...prev, isVisible: false }))
                 }
             />
+
+            {/* Loader Overlay */}
+            <LoadingScreen isVisible={loading} />
         </div>
     );
 }

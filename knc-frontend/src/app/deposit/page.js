@@ -17,7 +17,7 @@ export default function Deposit() {
         // Check if user is logged in
         const storedUsername = localStorage.getItem('username');
         if (!storedUsername) {
-            router.push('/auth/login');
+            router.push('/auth');
         } else {
             setUsername(storedUsername);
             fetchUserBalance(storedUsername);

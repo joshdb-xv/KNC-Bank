@@ -17,7 +17,7 @@ export default function History() {
         // Check if user is logged in
         const storedUsername = localStorage.getItem('username');
         if (!storedUsername) {
-            router.push('/auth/login');
+            router.push('/auth');
         } else {
             setUsername(storedUsername);
             fetchTransactionHistory(storedUsername);
