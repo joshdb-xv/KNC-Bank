@@ -11,6 +11,7 @@ backend/.venv/
 *.pyo
 *.pyd
 .env
+.env
 
 # OS junk
 .DS_Store
