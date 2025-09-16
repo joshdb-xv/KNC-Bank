@@ -144,13 +144,19 @@ export default function Profile() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray flex items-center justify-center">
-        <div className="bg-white rounded-2xl p-8 shadow-lg">
-          <div className="flex items-center space-x-3">
-            <FiLoader className="animate-spin h-6 w-6 text-primary" />
-            <p className="text-lg text-gray-dark">Loading your profile...</p>
+      <div className="flex bg-gray">
+          <Sidebar />
+          <div className="w-4/5 flex h-screen flex-col items-center">
+              {/* HEADER */}
+              <div className="flex items-center w-full h-24 bg-white shadow-[0px_2px_16px_0px_rgba(0,0,0,0.15)]">
+              <h1 className="text-primary text-4xl font-semibold mx-8">Profile</h1>
+              </div>
+
+              {/* LOADER */}
+              <div className="flex h-[calc(100%-24rem)] flex-col items-center justify-center">
+              <div className="w-12 h-12 border-4 border-gray-300 border-t-primary rounded-full animate-spin"></div>
+              </div>
           </div>
-        </div>
       </div>
     );
   }
